@@ -1,0 +1,53 @@
+<h2>Sign up using this form</h2>
+
+<?php echo $this->tag->form("signup/register"); ?>
+
+<p>
+    <label for="login">Login *</label>
+    <?php echo $this->tag->textField(["login", "minlength" => 2, "maxlength" => 32, "required" => 1]); ?>
+</p>
+
+<p>
+    <label for="password">Password *</label>
+    <?php echo $this->tag->passwordField(["password", "minlength" => 6, "maxlength" => 18, "required" => 1]); ?>
+</p>
+
+<p>
+    <label for="first-name">First Name *</label>
+    <?php echo $this->tag->textField(["first-name", "minlength" => 2, "maxlength" => 50, "required" => 1]); ?>
+</p>
+
+<p>
+    <label for="last-name">Last Name *</label>
+    <?php echo $this->tag->textField(["last-name", "minlength" => 2, "maxlength" => 50, "required" => 1]); ?>
+</p>
+
+<p>
+    <label for="age">Age *</label>
+    <?php echo $this->tag->numericField(["age", "min" => 1, "max" => 99, "required" => 1]); ?>
+</p>
+
+<p>
+    <!-- Example: -->
+    <label for="phone">Phone Number *</label>
+    <?php echo $this->tag->telField(["phone", "minlength" => 11, "maxlength" => 11, "required" => 1]); ?>
+</p>
+
+<p>
+    <!-- Example: L0000-00000-00000 -->
+    <label for="driver-license">Driver License Number *</label>
+    <?php echo $this->tag->textField(["driver-license", "minlength" => 15, "maxlength" => 17, "required" => 1]); ?>
+</p>
+
+<p>
+    <label for="address">Address</label>
+    <?php echo $this->tag->textArea(["address", "maxlength" => 1000]); ?>
+</p>
+
+<p>
+    <?php echo $this->tag->submitButton("Register"); ?>
+</p>
+
+<p>* - required fields</p>
+
+</form>
