@@ -48,7 +48,7 @@ class UserMigration_101 extends Migration
                         ]
                     ),
                     new Column(
-                        'first-name',
+                        'first',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
@@ -57,7 +57,7 @@ class UserMigration_101 extends Migration
                         ]
                     ),
                     new Column(
-                        'last-name',
+                        'last',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
@@ -77,14 +77,14 @@ class UserMigration_101 extends Migration
                     new Column(
                         'phone',
                         [
-                            'type' => Column::TYPE_INTEGER,
+                            'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 1,
+                            'size' => 21,
                             'after' => 'age'
                         ]
                     ),
                     new Column(
-                        'driver-license',
+                        'driver',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
@@ -101,7 +101,7 @@ class UserMigration_101 extends Migration
                         ]
                     ),
                     new Column(
-                        'created-at',
+                        'created',
                         [
                             'type' => Column::TYPE_DATETIME,
                             'notNull' => true,

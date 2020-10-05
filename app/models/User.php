@@ -1,5 +1,11 @@
 <?php
 
+use \Phalcon\Validation;
+use \Phalcon\Validation\Validator\Uniqueness,
+    \Phalcon\Validation\Validator\PresenceOf,
+    \Phalcon\Validation\Validator\StringLength;
+
+
 class User extends \Phalcon\Mvc\Model
 {
 
@@ -25,13 +31,13 @@ class User extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $firstName;
+    public $first;
 
     /**
      *
      * @var string
      */
-    public $lastName;
+    public $last;
 
     /**
      *
@@ -41,7 +47,7 @@ class User extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
+     * @var string
      */
     public $phone;
 
@@ -49,7 +55,7 @@ class User extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $driverLicense;
+    public $driver;
 
     /**
      *
@@ -61,7 +67,7 @@ class User extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $createdAt;
+    public $created;
 
     /**
      * Initialize method for model.
@@ -92,6 +98,59 @@ class User extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Validate user model
+     *
+     * @return bool
+     */
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add('login',
+            new Uniqueness([
+                'model' => $this,
+                'message' => 'Your login is already in use',
+            ])
+        );
+
+        $validator->add('login',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The login is required',
+            ])
+        );
+
+        $validator->add('login',
+            new StringLength([
+                'model' => $this,
+                'min' => 2,
+                'max' => 32,
+                'minMessage' => 'Your login must be at least 2 characters',
+                'maxMessage' => 'Your login must be less than 32 characters',
+            ])
+        );
+
+        $validator->add('password',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The password is required',
+            ])
+        );
+
+        $validator->add('password',
+            new StringLength([
+                'model' => $this,
+                'min' => 6,
+                'max' => 18,
+                'minMessage' => 'Your password must be at least 6 characters',
+                'maxMessage' => 'Your password must be less than 18 characters',
+            ])
+        );
+
+        return $this->validate($validator);
     }
 
 }
