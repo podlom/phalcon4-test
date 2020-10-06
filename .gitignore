@@ -1,0 +1,4 @@
+# Phalcon app config
+app/config/config.php
+# phpStrom IDE configs folder
+.idea/
