@@ -33,6 +33,12 @@ class LoginController extends ControllerBase
             ]);
 
             error_log(__METHOD__ . ' +' . __LINE__ . ' found user: ' . print_r($user, true));
+
+            if (empty($user)) {
+                echo '<p>User with such login and password was not found. <a href="/signup">Sign Up here</a> if you does not have account yet.</p>';
+            } else {
+                echo '<p>Welcome back, ' . $user->first . '.</p>';
+            }
         }
     }
 }
