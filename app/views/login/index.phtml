@@ -1,0 +1,33 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Taras
+ * Date: 07.10.2020
+ * Time: 16:21
+ *
+ * @author Taras Shkodenko <taras@shkodenko.com>
+ */
+
+?>
+
+<h2>Log in using form below</h2>
+
+<?php echo $this->tag->form("login/login"); ?>
+
+<p>
+    <label for="login">Login *</label>
+    <?php echo $this->tag->textField(["login", "minlength" => 2, "maxlength" => 32, "required" => 1]); ?>
+</p>
+
+<p>
+    <label for="password">Password *</label>
+    <?php echo $this->tag->passwordField(["password", "minlength" => 6, "maxlength" => 18, "required" => 1]); ?>
+</p>
+
+<p>
+    <?php echo $this->tag->submitButton("Log in"); ?>
+</p>
+
+<p>* - required fields</p>
+
+</form>
