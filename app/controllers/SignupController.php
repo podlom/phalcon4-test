@@ -21,10 +21,8 @@ class SignupController extends ControllerBase
 
     public function registerAction()
     {
-        // @see https://docs.phalcon.io/4.0/en/request
         $request = new Request();
 
-        // Check whether the request was made with method POST
         if ($request->isPost()) {
             error_log(__METHOD__ . ' +' . __LINE__ . ' it is POST request');
 
@@ -33,25 +31,24 @@ class SignupController extends ControllerBase
             error_log(__METHOD__ . ' +' . __LINE__ . ' login: ' . var_export($user->login, true));
             $user->password = $request->getPost('password');
             error_log(__METHOD__ . ' +' . __LINE__ . ' password: ' . var_export($user->password, true));
-            $user->firstName = $request->getPost('first');
-            error_log(__METHOD__ . ' +' . __LINE__ . ' first: ' . var_export($user->firstName, true));
-            $user->lastName = $request->getPost('last');
-            error_log(__METHOD__ . ' +' . __LINE__ . ' last: ' . var_export($user->lastName, true));
+            $user->first = $request->getPost('first');
+            error_log(__METHOD__ . ' +' . __LINE__ . ' first: ' . var_export($user->first, true));
+            $user->last = $request->getPost('last');
+            error_log(__METHOD__ . ' +' . __LINE__ . ' last: ' . var_export($user->last, true));
             $user->age = $request->getPost('age');
             error_log(__METHOD__ . ' +' . __LINE__ . ' age: ' . var_export($user->age, true));
             $user->phone = $request->getPost('phone');
             error_log(__METHOD__ . ' +' . __LINE__ . ' phone: ' . var_export($user->phone, true));
-            $user->driverLicense = $request->getPost('driver');
-            error_log(__METHOD__ . ' +' . __LINE__ . ' driver: ' . var_export($user->driverLicense, true));
+            $user->driver = $request->getPost('driver');
+            error_log(__METHOD__ . ' +' . __LINE__ . ' driver: ' . var_export($user->driver, true));
             $user->address = $request->getPost('address');
             error_log(__METHOD__ . ' +' . __LINE__ . ' address: ' . var_export($user->address, true));
             $user->created = date('Y-m-d H:i:s');
             // $result = $user->save();
-            // $result = $user->save(null, ['createdAt']);
             $result = $user->create();
             if ($result === false) {
-                $messages = $user->getMessages();
                 $errorMessages = '';
+                $messages = $user->getMessages();
                 foreach ($messages as $message) {
                     $errorMessages .= $message . PHP_EOL;
                 }
