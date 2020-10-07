@@ -30,9 +30,9 @@ class LoginController extends ControllerBase
 
             $user = User::find(['conditions' => 'login = :login: AND password = :password:',
                 'bind' => ['login' => $login, 'password' => $password]
-            ]);
+            ])->getFirst();
 
-            error_log(__METHOD__ . ' +' . __LINE__ . ' found user: ' . print_r($user, true));
+            error_log(__METHOD__ . ' +' . __LINE__ . ' Found $user: ' . print_r($user, true));
 
             if (!$user) {
                 echo '<p>User with such login and password was not found. <a href="/signup">Sign Up here</a> if you does not have account yet.</p>';
