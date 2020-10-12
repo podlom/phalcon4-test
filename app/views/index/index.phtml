@@ -7,7 +7,7 @@
 <?php
 
 if (!empty($userName)) {
-    ?><p>Wellcome back, <strong><?php echo $userName . '</strong></p>';
+    ?><p>Wellcome back, <strong><?php echo $userName . '</strong>. <a href="/login/logout">Log Out</a>.</p>';
 } else {
     echo '<p><a href="/signup">Sign up here</a> or <a href="/login">Log in</a></p>';
 }

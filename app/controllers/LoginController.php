@@ -9,6 +9,7 @@
  */
 
 use Phalcon\Http\Request;
+use Phalcon\Http\Response;
 use Phalcon\Http\Response\Cookies;
 
 
@@ -24,24 +25,24 @@ class LoginController extends ControllerBase
 
         if ($request->isPost()) {
             $login = $request->getPost('login');
-            error_log(__METHOD__ . ' +' . __LINE__ . ' login: ' . var_export($login, true));
+            // error_log(__METHOD__ . ' +' . __LINE__ . ' login: ' . var_export($login, true));
             $password = $request->getPost('password');
-            error_log(__METHOD__ . ' +' . __LINE__ . ' password: ' . var_export($password, true));
+            // error_log(__METHOD__ . ' +' . __LINE__ . ' password: ' . var_export($password, true));
 
             $user = User::find(['conditions' => 'login = :login: AND password = :password:',
                 'bind' => ['login' => $login, 'password' => $password]
             ])->getFirst();
 
-            error_log(__METHOD__ . ' +' . __LINE__ . ' Found $user: ' . print_r($user, true));
+            // error_log(__METHOD__ . ' +' . __LINE__ . ' Found $user: ' . print_r($user, true));
 
             if (!$user) {
                 echo '<p>User with such login and password was not found. <a href="/signup">Sign Up here</a> if you does not have account yet.</p>';
             } else {
+                // error_log(__METHOD__ . ' +' . __LINE__ . ' User::COOKIE_USER_KEY: ' . User::COOKIE_USER_KEY);
                 $now = new \DateTimeImmutable();
                 $tomorrow = $now->modify('tomorrow');
-                $cookies = new Cookies();
-                $cookies->set(
-                    self::COOKIE_USER_KEY,
+                $this->cookies->set(
+                    User::COOKIE_USER_KEY,
                     json_encode(
                         [
                             'user_name' => $user->first,
@@ -50,8 +51,25 @@ class LoginController extends ControllerBase
                     (int) $tomorrow->format('U')
                 );
 
-                echo '<p>Welcome back, ' . $user->first . '.</p>';
+                echo '<p>Welcome back, ' . $user->first . '. <a href="/login/logout">Log Out</a>.</p>';
             }
         }
+    }
+
+    public function logoutAction()
+    {
+        $now = new \DateTimeImmutable();
+        $yesterday = $now->modify('yesterday');
+        $this->cookies->set(
+            User::COOKIE_USER_KEY,
+            json_encode([]),
+            (int) $yesterday->format('U')
+        );
+
+        // Getting a response instance
+        $response = new Response();
+
+        // Redirect to the default URI
+        $response->redirect('/');
     }
 }

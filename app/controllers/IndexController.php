@@ -6,6 +6,7 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        // error_log(__METHOD__ . ' User::COOKIE_USER_KEY: ' . User::COOKIE_USER_KEY);
         $cookie = $this->cookies->get(User::COOKIE_USER_KEY);
         $cookieVal = $cookie->getValue();
         error_log(__METHOD__ . ' $cookieVal: ' . print_r($cookieVal, true));
