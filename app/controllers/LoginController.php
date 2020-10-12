@@ -9,6 +9,7 @@
  */
 
 use Phalcon\Http\Request;
+use Phalcon\Http\Response\Cookies;
 
 
 class LoginController extends ControllerBase
@@ -36,7 +37,19 @@ class LoginController extends ControllerBase
             if (!$user) {
                 echo '<p>User with such login and password was not found. <a href="/signup">Sign Up here</a> if you does not have account yet.</p>';
             } else {
-                User::rememberUser($user->first);
+                $now = new \DateTimeImmutable();
+                $tomorrow = $now->modify('tomorrow');
+                $cookies = new Cookies();
+                $cookies->set(
+                    self::COOKIE_USER_KEY,
+                    json_encode(
+                        [
+                            'user_name' => $user->first,
+                        ]
+                    ),
+                    (int) $tomorrow->format('U')
+                );
+
                 echo '<p>Welcome back, ' . $user->first . '.</p>';
             }
         }

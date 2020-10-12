@@ -1,6 +1,5 @@
 <?php
 
-use \Phalcon\Http\Response;
 use \Phalcon\Http\Response\Cookies;
 use \Phalcon\Validation;
 use \Phalcon\Validation\Validator\Uniqueness,
