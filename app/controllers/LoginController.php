@@ -32,13 +32,11 @@ class LoginController extends ControllerBase
             $user = User::find(['conditions' => 'login = :login: AND password = :password:',
                 'bind' => ['login' => $login, 'password' => $password]
             ])->getFirst();
-
             // error_log(__METHOD__ . ' +' . __LINE__ . ' Found $user: ' . print_r($user, true));
 
             if (!$user) {
                 echo '<p>User with such login and password was not found. <a href="/signup">Sign Up here</a> if you does not have account yet.</p>';
             } else {
-                // error_log(__METHOD__ . ' +' . __LINE__ . ' User::COOKIE_USER_KEY: ' . User::COOKIE_USER_KEY);
                 $now = new \DateTimeImmutable();
                 $tomorrow = $now->modify('tomorrow');
                 $this->cookies->set(
@@ -65,11 +63,8 @@ class LoginController extends ControllerBase
             json_encode([]),
             (int) $yesterday->format('U')
         );
-
-        // Getting a response instance
+        
         $response = new Response();
-
-        // Redirect to the default URI
-        $response->redirect('/');
+        $response->redirect('/login?rand=' . random_int(1, 9999));
     }
 }
