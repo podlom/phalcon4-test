@@ -4,4 +4,10 @@
 
 <p>You're now flying with Phalcon. Great things are about to happen!</p>
 
-<p><a href="/signup">Sign up here</a> or <a href="/login">Log in</a></p>
+<?php
+
+if (!empty($userName)) {
+    ?><p>Wellcome back, <strong><?php echo $userName . '</strong></p>';
+} else {
+    echo '<p><a href="/signup">Sign up here</a> or <a href="/login">Log in</a></p>';
+}

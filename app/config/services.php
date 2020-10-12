@@ -10,6 +10,9 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Stream as SessionAdapter;
 use Phalcon\Session\Manager as SessionManager;
 use Phalcon\Url as UrlResolver;
+use Phalcon\Crypt;
+use Phalcon\Http\Response\Cookies;
+
 
 /**
  * Shared configuration service
@@ -119,4 +122,27 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
+});
+
+/**
+ * Set crypt for cookie encryption
+ */
+
+$di->set('crypt', function () {
+    $crypt = new Crypt();
+
+    $crypt->setKey('zLi]jfZ4fg8_i]RF'); // Use your own key!
+
+    return $crypt;
+});
+
+/**
+ * Set cookie universal
+ */
+$di->setShared('cookies', function () {
+    $cookies = new Cookies();
+
+    // $cookies->useEncryption(true);
+
+    return $cookies;
 });

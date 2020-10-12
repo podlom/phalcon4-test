@@ -15,7 +15,6 @@ class LoginController extends ControllerBase
 {
     public function indexAction()
     {
-
     }
 
     public function loginAction()
@@ -37,6 +36,7 @@ class LoginController extends ControllerBase
             if (!$user) {
                 echo '<p>User with such login and password was not found. <a href="/signup">Sign Up here</a> if you does not have account yet.</p>';
             } else {
+                User::rememberUser($user->first);
                 echo '<p>Welcome back, ' . $user->first . '.</p>';
             }
         }

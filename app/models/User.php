@@ -1,5 +1,7 @@
 <?php
 
+use \Phalcon\Http\Response;
+use \Phalcon\Http\Response\Cookies;
 use \Phalcon\Validation;
 use \Phalcon\Validation\Validator\Uniqueness,
     \Phalcon\Validation\Validator\PresenceOf,
@@ -8,6 +10,7 @@ use \Phalcon\Validation\Validator\Uniqueness,
 
 class User extends \Phalcon\Mvc\Model
 {
+    const COOKIE_USER_KEY = 'admin_user';
 
     /**
      *
@@ -153,4 +156,20 @@ class User extends \Phalcon\Mvc\Model
         return $this->validate($validator);
     }
 
+    public static function rememberUser($name)
+    {
+        $now = new \DateTimeImmutable();
+        $tomorrow = $now->modify('tomorrow');
+
+        $cookies = new Cookies();
+        $cookies->set(
+            self::COOKIE_USER_KEY,
+            json_encode(
+                [
+                    'user_name' => $name,
+                ]
+            ),
+            (int) $tomorrow->format('U')
+        );
+    }
 }
