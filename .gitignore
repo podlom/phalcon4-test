@@ -2,3 +2,6 @@
 app/config/config.php
 # phpStrom IDE configs folder
 .idea/
+# Phalcon cache & dev configs
+/cache/
+/config/development/
