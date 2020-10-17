@@ -152,6 +152,71 @@ class User extends \Phalcon\Mvc\Model
             ])
         );
 
+        $validator->add('first',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The first name is required',
+            ])
+        );
+
+        $validator->add('first',
+            new StringLength([
+                'model' => $this,
+                'min' => 2,
+                'max' => 50,
+                'minMessage' => 'Your first name must be at least 2 characters',
+                'maxMessage' => 'Your first name must be less than 50 characters',
+            ])
+        );
+
+        $validator->add('last',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The last name is required',
+            ])
+        );
+
+        $validator->add('last',
+            new StringLength([
+                'model' => $this,
+                'min' => 2,
+                'max' => 50,
+                'minMessage' => 'Your last name must be at least 2 characters',
+                'maxMessage' => 'Your last name must be less than 50 characters',
+            ])
+        );
+
+        $validator->add('age',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The age is required',
+            ])
+        );
+
+        $validator->add('age',
+            new StringLength([
+                'model' => $this,
+                'min' => 1,
+                'max' => 2,
+                'minMessage' => 'Your age must be at least 1 character',
+                'maxMessage' => 'Your age must be less than 2 characters',
+            ])
+        );
+
+        $validator->add('phone',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The phone is required',
+            ])
+        );
+
+        $validator->add('driver',
+            new PresenceOf([
+                'model' => $this,
+                'message' => 'The driver license number is required',
+            ])
+        );
+
         return $this->validate($validator);
     }
 
